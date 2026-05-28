@@ -1,0 +1,29 @@
+name: MLB Lineup Alerts
+
+on:
+  schedule:
+    # Cada 5 minutos entre 13:00 y 04:00 UTC (= 10:00 y 01:00 Argentina)
+    - cron: '*/5 13-23 * * *'
+    - cron: '*/5 0-4 * * *'
+  workflow_dispatch:  # permite correrlo manualmente desde GitHub
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pytz
+
+      - name: Run lineup check
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python check_lineups.py
