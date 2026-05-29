@@ -84,6 +84,7 @@ def enviar_telegram(mensaje):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
         r = requests.post(url, json={"chat_id": CHAT_ID, "text": mensaje, "parse_mode": "Markdown"}, timeout=10)
+        print(f"[Telegram] Status: {r.status_code} — {r.text}")
         return r.status_code == 200
     except Exception as e:
         print(f"[Telegram ERROR] {e}")
