@@ -22,7 +22,7 @@ JUGADORES = [
     {"nombre": "Christian Yelich",   "equipo": "MIL"},
     {"nombre": "Sal Frelick",        "equipo": "MIL"},
     {"nombre": "Dillon Dingler",     "equipo": "DET"},
-    {"nombre": "Richie Palacios",    "equipo": "CLE"},
+    {"nombre": "Javier Sanoja",      "equipo": "CLE"},
     {"nombre": "Colson Montgomery",  "equipo": "CWS"},
     {"nombre": "Jarren Duran",       "equipo": "BOS"},
     {"nombre": "Josh Naylor",        "equipo": "SEA"},
@@ -34,7 +34,7 @@ JUGADORES = [
     {"nombre": "Michael Harris II",  "equipo": "ATL"},
     {"nombre": "Shohei Ohtani",      "equipo": "LAD"},
     {"nombre": "Angel Martinez",     "equipo": "CLE"},
-    {"nombre": "Carlos Cortes",      "equipo": "ATH"},
+    {"nombre": "Garrett Mitchell",   "equipo": "MIL"},
     {"nombre": "Keibert Ruiz",       "equipo": "WSH"},
     {"nombre": "Nolan Arenado",      "equipo": "AZ"},
     {"nombre": "Otto Lopez",         "equipo": "MIA"},
@@ -47,7 +47,9 @@ JUGADORES = [
     {"nombre": "Corbin Carroll",     "equipo": "AZ"},
     {"nombre": "Julio Rodriguez",    "equipo": "SEA"},
     {"nombre": "Munetaka Murakami",  "equipo": "CWS"},
-    {"nombre": "Jeff McNeil",        "equipo": "ATH"},
+    {"nombre": "Tristan Peters",     "equipo": "ATH"},
+    {"nombre": "Josh Bell",          "equipo": "MIA"},
+    {"nombre": "Caleb Durbin",       "equipo": "BOS"},
     {"nombre": "Jac Caglianone",     "equipo": "KC"},
     {"nombre": "CJ Abrams",          "equipo": "WSH"},
     {"nombre": "Dalton Rushing",     "equipo": "LAD"},
@@ -84,7 +86,6 @@ def enviar_telegram(mensaje):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
         r = requests.post(url, json={"chat_id": CHAT_ID, "text": mensaje, "parse_mode": "Markdown"}, timeout=10)
-        print(f"[Telegram] Status: {r.status_code} — {r.text}")
         return r.status_code == 200
     except Exception as e:
         print(f"[Telegram ERROR] {e}")
