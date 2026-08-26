@@ -20,7 +20,6 @@ JUGADORES = [
     {"nombre": "Jose Caballero",     "equipo": "NYY"},
     {"nombre": "Chase DeLauter",     "equipo": "CLE"},
     {"nombre": "Christian Yelich",   "equipo": "MIL"},
-    {"nombre": "Sal Frelick",        "equipo": "MIL"},
     {"nombre": "Dillon Dingler",     "equipo": "DET"},
     {"nombre": "Javier Sanoja",      "equipo": "CLE"},
     {"nombre": "Colson Montgomery",  "equipo": "CWS"},
@@ -50,12 +49,10 @@ JUGADORES = [
     {"nombre": "Endy Rodriguez",     "equipo": "PIT"},
     {"nombre": "Pete Crow-Armstrong", "equipo": "CHC"},
     {"nombre": "Brandon Lowe",        "equipo": "PIT"},
-    {"nombre": "Josh Bell",          "equipo": "MIA"},
     {"nombre": "Caleb Durbin",       "equipo": "BOS"},
     {"nombre": "Jac Caglianone",     "equipo": "KC"},
     {"nombre": "CJ Abrams",          "equipo": "WSH"},
     {"nombre": "Dalton Rushing",     "equipo": "LAD"},
-    {"nombre": "Oswald Peraza",      "equipo": "LAA"},
 ]
 
 def normalizar(texto):
