@@ -37,8 +37,8 @@ JUGADORES = [
     {"nombre": "Brandon Lowe",                "equipo": "PIT"},
     {"nombre": "Jac Caglianone",              "equipo": "KC"},
     {"nombre": "Garrett Mitchell",            "equipo": "MIL"},
-    {"nombre": "Rafael Devers",               "equipo": "BOS"},
-    {"nombre": "Kazuma Okamoto",              "equipo": "SF"},
+    {"nombre": "Rafael Devers",               "equipo": "SF"},
+    {"nombre": "Kazuma Okamoto",              "equipo": "TOR"},
     {"nombre": "Mookie Betts",                "equipo": "LAD"},
     {"nombre": "Mickey Gasper",               "equipo": "BOS"},
 ]
