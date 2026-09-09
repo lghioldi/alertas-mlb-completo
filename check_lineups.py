@@ -11,48 +11,36 @@ CHAT_ID        = os.environ["CHAT_ID"]
 ZONA           = pytz.timezone("America/Argentina/Buenos_Aires")
 
 JUGADORES = [
-    {"nombre": "Shea Langeliers",    "equipo": "ATH"},
-    {"nombre": "Sal Stewart",        "equipo": "CIN"},
-    {"nombre": "Luis Arraez",        "equipo": "SF"},
-    {"nombre": "JJ Wetherholt",      "equipo": "STL"},
-    {"nombre": "Elly De La Cruz",    "equipo": "CIN"},
-    {"nombre": "Fernando Tatis Jr.", "equipo": "SD"},
-    {"nombre": "Jose Caballero",     "equipo": "NYY"},
-    {"nombre": "Chase DeLauter",     "equipo": "CLE"},
-    {"nombre": "Christian Yelich",   "equipo": "MIL"},
-    {"nombre": "Dillon Dingler",     "equipo": "DET"},
-    {"nombre": "Javier Sanoja",      "equipo": "CLE"},
-    {"nombre": "Colson Montgomery",  "equipo": "CWS"},
-    {"nombre": "Jarren Duran",       "equipo": "BOS"},
-    {"nombre": "Josh Naylor",        "equipo": "SEA"},
-    {"nombre": "Brice Turang",       "equipo": "MIL"},
-    {"nombre": "Ernie Clement",      "equipo": "TOR"},
-    {"nombre": "Bobby Witt Jr.",     "equipo": "KC"},
-    {"nombre": "Jung Hoo Lee",       "equipo": "SF"},
-    {"nombre": "Wilyer Abreu",       "equipo": "BOS"},
-    {"nombre": "Michael Harris II",  "equipo": "ATL"},
-    {"nombre": "Shohei Ohtani",      "equipo": "LAD"},
-    {"nombre": "Angel Martinez",     "equipo": "CLE"},
-    {"nombre": "Christian Encarnacion-Strand", "equipo": "BAL"},
-    {"nombre": "Keibert Ruiz",       "equipo": "WSH"},
-    {"nombre": "Nolan Arenado",      "equipo": "AZ"},
-    {"nombre": "Otto Lopez",         "equipo": "MIA"},
-    {"nombre": "Wyatt Langford",     "equipo": "TEX"},
-    {"nombre": "Ivan Herrera",       "equipo": "STL"},
-    {"nombre": "Nick Kurtz",         "equipo": "ATH"},
-    {"nombre": "Luke Keaschall",     "equipo": "MIN"},
-    {"nombre": "Junior Caminero",    "equipo": "TB"},
-    {"nombre": "Kevin McGonigle",    "equipo": "DET"},
-    {"nombre": "Corbin Carroll",     "equipo": "AZ"},
-    {"nombre": "Julio Rodriguez",    "equipo": "SEA"},
-    {"nombre": "Munetaka Murakami",  "equipo": "CWS"},
-    {"nombre": "Endy Rodriguez",     "equipo": "PIT"},
-    {"nombre": "Pete Crow-Armstrong", "equipo": "CHC"},
-    {"nombre": "Brandon Lowe",        "equipo": "PIT"},
-    {"nombre": "Caleb Durbin",       "equipo": "BOS"},
-    {"nombre": "Jac Caglianone",     "equipo": "KC"},
-    {"nombre": "CJ Abrams",          "equipo": "WSH"},
-    {"nombre": "Dalton Rushing",     "equipo": "LAD"},
+    {"nombre": "Chase DeLauter",              "equipo": "CLE"},
+    {"nombre": "Dillon Dingler",              "equipo": "DET"},
+    {"nombre": "Josh Naylor",                 "equipo": "SEA"},
+    {"nombre": "Brice Turang",                "equipo": "MIL"},
+    {"nombre": "Ernie Clement",               "equipo": "TOR"},
+    {"nombre": "Bobby Witt Jr.",              "equipo": "KC"},
+    {"nombre": "Jung Hoo Lee",                "equipo": "SF"},
+    {"nombre": "Wilyer Abreu",                "equipo": "BOS"},
+    {"nombre": "Michael Harris II",           "equipo": "ATL"},
+    {"nombre": "Shohei Ohtani",               "equipo": "LAD"},
+    {"nombre": "Christian Encarnacion-Strand","equipo": "BAL"},
+    {"nombre": "Keibert Ruiz",                "equipo": "WSH"},
+    {"nombre": "Otto Lopez",                  "equipo": "MIA"},
+    {"nombre": "Wyatt Langford",              "equipo": "TEX"},
+    {"nombre": "Ivan Herrera",                "equipo": "STL"},
+    {"nombre": "Nick Kurtz",                  "equipo": "ATH"},
+    {"nombre": "Luke Keaschall",              "equipo": "MIN"},
+    {"nombre": "Junior Caminero",             "equipo": "TB"},
+    {"nombre": "Kevin McGonigle",             "equipo": "DET"},
+    {"nombre": "Corbin Carroll",              "equipo": "AZ"},
+    {"nombre": "Julio Rodriguez",             "equipo": "SEA"},
+    {"nombre": "Munetaka Murakami",           "equipo": "CWS"},
+    {"nombre": "Pete Crow-Armstrong",         "equipo": "CHC"},
+    {"nombre": "Brandon Lowe",                "equipo": "PIT"},
+    {"nombre": "Jac Caglianone",              "equipo": "KC"},
+    {"nombre": "Garrett Mitchell",            "equipo": "MIL"},
+    {"nombre": "Rafael Devers",               "equipo": "BOS"},
+    {"nombre": "Kazuma Okamoto",              "equipo": "SF"},
+    {"nombre": "Mookie Betts",                "equipo": "LAD"},
+    {"nombre": "Mickey Gasper",               "equipo": "BOS"},
 ]
 
 def normalizar(texto):
@@ -66,7 +54,6 @@ for j in JUGADORES:
     if clave not in JUGADORES_NORM:
         JUGADORES_NORM[clave] = j
 
-# ─── ESTADO (archivo JSON para no repetir alertas del mismo día) ──
 STATE_FILE = "alertas_state.json"
 
 def cargar_estado():
@@ -80,17 +67,16 @@ def guardar_estado(estado):
     with open(STATE_FILE, "w") as f:
         json.dump(estado, f)
 
-# ─── TELEGRAM ────────────────────────────────────────────────────
 def enviar_telegram(mensaje):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
         r = requests.post(url, json={"chat_id": CHAT_ID, "text": mensaje, "parse_mode": "Markdown"}, timeout=10)
+        print(f"[Telegram] Status: {r.status_code}")
         return r.status_code == 200
     except Exception as e:
         print(f"[Telegram ERROR] {e}")
         return False
 
-# ─── MLB API ─────────────────────────────────────────────────────
 def get_juegos_hoy():
     hoy = datetime.now(ZONA).strftime("%Y-%m-%d")
     url = f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={hoy}"
@@ -115,23 +101,20 @@ def get_boxscore(game_pk):
     except:
         return {}
 
-# ─── VERIFICAR ALINEACIONES ──────────────────────────────────────
 def verificar():
     hoy   = datetime.now(ZONA).strftime("%Y-%m-%d")
     estado = cargar_estado()
-
-    # Limpiar estado de días anteriores
     estado = {k: v for k, v in estado.items() if k.startswith(hoy)}
 
     juegos = get_juegos_hoy()
     nuevas_alertas = 0
 
     for juego in juegos:
-        game_pk    = juego.get("gamePk")
+        game_pk      = juego.get("gamePk")
         estado_juego = juego.get("status", {}).get("abstractGameState", "")
-        teams      = juego.get("teams", {})
-        home_abrev = teams.get("home", {}).get("team", {}).get("abbreviation", "")
-        away_abrev = teams.get("away", {}).get("team", {}).get("abbreviation", "")
+        teams        = juego.get("teams", {})
+        home_abrev   = teams.get("home", {}).get("team", {}).get("abbreviation", "")
+        away_abrev   = teams.get("away", {}).get("team", {}).get("abbreviation", "")
 
         if estado_juego not in ("Preview", "Live", "Final"):
             continue
@@ -174,7 +157,7 @@ def verificar():
 
                     hora_utc = juego.get("gameDate", "")
                     try:
-                        dt_utc  = datetime.strptime(hora_utc, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+                        dt_utc   = datetime.strptime(hora_utc, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
                         hora_txt = dt_utc.astimezone(ZONA).strftime("%H:%M hs Argentina")
                     except:
                         hora_txt = hora_utc
