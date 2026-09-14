@@ -32,15 +32,14 @@ JUGADORES = [
     {"nombre": "Kevin McGonigle",             "equipo": "DET"},
     {"nombre": "Corbin Carroll",              "equipo": "AZ"},
     {"nombre": "Julio Rodriguez",             "equipo": "SEA"},
-    {"nombre": "Munetaka Murakami",           "equipo": "CWS"},
     {"nombre": "Pete Crow-Armstrong",         "equipo": "CHC"},
     {"nombre": "Brandon Lowe",                "equipo": "PIT"},
+    {"nombre": "Steven Kwan",              "equipo": "CLE"},
     {"nombre": "Jac Caglianone",              "equipo": "KC"},
-    {"nombre": "Garrett Mitchell",            "equipo": "MIL"},
-    {"nombre": "Rafael Devers",               "equipo": "SF"},
     {"nombre": "Kazuma Okamoto",              "equipo": "TOR"},
     {"nombre": "Mookie Betts",                "equipo": "LAD"},
     {"nombre": "Mickey Gasper",               "equipo": "BOS"},
+        {"nombre": "Jake McCarthy",            "equipo": "COL"},
 ]
 
 def normalizar(texto):
